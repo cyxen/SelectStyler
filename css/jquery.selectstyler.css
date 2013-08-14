@@ -1,0 +1,48 @@
+.selectstyler {
+    position: relative;
+    width: 130px;
+    height: 20px;
+    background:#fff url(images/arrow-down.png) 135px 13px no-repeat;
+    display: inline-block;
+    cursor: pointer;
+    cursor: hand;
+    z-index: 1;
+    padding: 7px 20px 7px 7px;
+    border:1px solid #ccc;
+}
+.selectstyler.active {
+    background:#fff url(images/arrow-up.png) 135px 13px no-repeat;
+}
+.selectstylerouter {
+    display: inline-block;
+}
+.selectstylerouter .selectstylerul {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    width: 157px;
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+}
+.selectstylerouter .selectstylerul li {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    width: 143px;
+    cursor: pointer;
+    cursor: hand;
+    list-style: none;
+    padding: 7px;
+}
+.selectstylerouter .selectstylerul li:hover {
+    background: #ddd;
+}
+.selectstylerouter .selectstylerul .activeli {
+    background: #eee;
+}
