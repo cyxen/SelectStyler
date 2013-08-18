@@ -4,23 +4,20 @@
  * Copyright 2013, Sergey Sukhenko
  * Released under the MIT, BSD, and GPL Licenses.
  */
-(function($) {
+ (function($) {
     $.fn.selectstyler = function(options) {
 
         var settings = $.extend({
             'height-ul': 'auto;'
         }, options);
         this_width = ' style="height:' + settings['height-ul'] + '"';
-        //   console.log(this_width);
         //создаем элементы
-       // console.log(this);
-        this.each(function() {
-            text_select = $(this).find('option:selected').html();
-            $(this).hide();
-            thisname = $(this).attr('name');
-            thisid = $(this).attr('id');
-            //$(this).addClass('selectstyler_' + count);
-            $(this).after('<div id="selectstylerouter_' + thisid + '" class="selectstylerouter"><div id="selectstyler_' + thisid + '" name="selectstyler_' + thisname + '" class="selectstyler">' + text_select + '</div><ul class="selectstylerul" id="selectstylerul_' + thisid + '" ' + this_width + '></ul></div>');
+       this.each(function() {
+        text_select = $(this).find('option:selected').html();
+        $(this).hide();
+        thisname = $(this).attr('name');
+        thisid = $(this).attr('id');
+            $(this).after('<div id="selectstylerouter_' + thisid + '" data-parent="'+thisid+'" class="selectstylerouter"><div id="selectstyler_' + thisid + '" name="selectstyler_' + thisname + '" class="selectstyler">' + text_select + '</div><ul class="selectstylerul" id="selectstylerul_' + thisid + '" ' + this_width + '></ul></div>');
             count_li = 0;
             $(this).find('option').each(function() {
                 if ($(this).attr('selected') == "selected") {
@@ -35,22 +32,25 @@
             $(this).remove();
         });
         //обрабатываем клики
-        var one_select_id =$('.selectstylerouter '+this.selector).attr('id');
-        var one_select = $('#selectstyler_'+one_select_id);
-        one_select.click(function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            ulthis = $(this).parent().find('.selectstylerul');
-            if ($(this).hasClass('active')) {
-                ulthis.hide();
-                $(this).removeClass('active');
-            } else {
-                $('.selectstylerul').hide();
-                $('.selectstyler').removeClass('active');
-                ulthis.css('display','block');
-                $(this).addClass('active');
-            }
+        this.each(function(){
+            thiselemid=$(this).attr('id');
+            var one_select = $('div[data-parent="'+thiselemid+'"]').find('.selectstyler');
+            one_select.click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                ulthis = $(this).parent().find('.selectstylerul');
+                if ($(this).hasClass('active')) {
+                    ulthis.hide();
+                    $(this).removeClass('active');
+                } else {
+                    $('.selectstylerul').hide();
+                    $('.selectstyler').removeClass('active');
+                    ulthis.css('display','block');
+                    $(this).addClass('active');
+                }
+            });
         });
+
         var one_option = $('.selectstylerul li');
         one_option.click(function(e) {
             e.preventDefault();
